@@ -10,7 +10,19 @@
 
     <ImageView
         android:id="@+id/myTank"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="@dimen/cell_size"
+        android:layout_height="@dimen/cell_size"
         app:srcCompat="@drawable/tank" />
+
+    <LinearLayout
+        android:id="@+id/materials_container"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:visibility="gone"
+        tools:visibility="visible" />
+
+    <ImageView
+        android:layout_width="@dimen/cell_size"
+        android:layout_height="@dimen/cell_size" />
 </FrameLayout>
