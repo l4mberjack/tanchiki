@@ -1,5 +1,6 @@
 package com.example.tanchiki
 
+import android.opengl.Visibility
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.KeyEvent
@@ -9,6 +10,7 @@ import android.view.KeyEvent.KEYCODE_DPAD_RIGHT
 import android.view.KeyEvent.KEYCODE_DPAD_UP
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View.*
 import android.widget.FrameLayout
 import androidx.core.view.marginLeft
 import androidx.core.view.marginTop
@@ -39,8 +41,11 @@ class MainActivity : AppCompatActivity() {
     private fun switchEditMode(){
         if(editMode){
             gridDrawer.removeGrid()
-        } else{
-          gridDrawer.drawGrid()
+            binding.materialsContainer.visibility = INVISIBLE
+        }
+        else{
+            gridDrawer.drawGrid()
+            binding.materialsContainer.visibility = VISIBLE
         }
         editMode = !editMode
     }
