@@ -1,4 +1,4 @@
-package com.example.tanchiki
+package com.example.tanchiki.enums
 
 enum class Direction {
     UP,

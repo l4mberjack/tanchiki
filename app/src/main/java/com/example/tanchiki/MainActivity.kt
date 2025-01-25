@@ -1,6 +1,5 @@
 package com.example.tanchiki
 
-import android.opengl.Visibility
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.KeyEvent
@@ -14,19 +13,29 @@ import android.view.View.*
 import android.widget.FrameLayout
 import androidx.core.view.marginLeft
 import androidx.core.view.marginTop
-import com.example.tanchiki.Direction.UP
-import com.example.tanchiki.Direction.DOWN
-import com.example.tanchiki.Direction.LEFT
-import com.example.tanchiki.Direction.RIGHT
+import com.example.tanchiki.enums.Direction.UP
+import com.example.tanchiki.enums.Direction.DOWN
+import com.example.tanchiki.enums.Direction.LEFT
+import com.example.tanchiki.enums.Direction.RIGHT
 import com.example.tanchiki.databinding.ActivityMainBinding
+import com.example.tanchiki.drawers.ElementsDrawer
+import com.example.tanchiki.drawers.GridDrawer
+import com.example.tanchiki.enums.Direction
+import com.example.tanchiki.enums.Material
+import com.example.tanchiki.models.Coordinate
 
 const val CELL_SIZE = 50
 
 lateinit var binding: ActivityMainBinding
 class MainActivity : AppCompatActivity() {
     private var editMode = false
+
     private val gridDrawer by lazy{
-        GridDrawer(this)
+        GridDrawer(binding.container)
+    }
+
+    private val elementsDrawer by lazy{
+        ElementsDrawer(binding.container)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,6 +45,15 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         supportActionBar?.title = "Menu"
+
+        binding.editorClear.setOnClickListener{ elementsDrawer.currentMaterial = Material.EMPTY }
+        binding.editorBrick.setOnClickListener{ elementsDrawer.currentMaterial = Material.BRICK }
+        binding.editorConcrete.setOnClickListener{ elementsDrawer.currentMaterial = Material.CONCRETE }
+        binding.editorGrass.setOnClickListener{ elementsDrawer.currentMaterial = Material.GRASS }
+        binding.container.setOnTouchListener{ _, event->
+            elementsDrawer.onTouchContainer(event.x,event.y)
+            return@setOnTouchListener true
+        }
     }
 
     private fun switchEditMode(){
