@@ -16,7 +16,7 @@ import com.example.tanchiki.models.Element
 
 class ElementsDrawer (val container: FrameLayout) {
     var currentMaterial = Material.EMPTY
-    private val elementsOnContainer = mutableListOf<Element>()
+    val elementsOnContainer = mutableListOf<Element>()
 
     fun onTouchContainer(x: Float, y:Float){
         val topMargin = y.toInt() - (y.toInt() % CELL_SIZE)
