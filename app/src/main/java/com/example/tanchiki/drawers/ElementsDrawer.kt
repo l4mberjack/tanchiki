@@ -1,11 +1,8 @@
 package com.example.tanchiki.drawers
 
-import android.net.TelephonyNetworkSpecifier
 import android.widget.FrameLayout
 import android.view.View
 import android.widget.ImageView
-import androidx.core.view.marginLeft
-import androidx.core.view.marginTop
 import com.example.tanchiki.CELL_SIZE
 import com.example.tanchiki.R
 import com.example.tanchiki.binding
@@ -75,7 +72,7 @@ class ElementsDrawer (val container: FrameLayout) {
         elementsOnContainer.add(Element(viewId,currentMaterial,coordinate))
     }
 
-    fun move(myTank: View, direction: Direction){
+    fun move(myTank: View, direction: Direction, elementsOnContainer: MutableList<Element>){
         val layoutParams = myTank.layoutParams as FrameLayout.LayoutParams
         val currentCoordinate = Coordinate(layoutParams.topMargin, layoutParams.leftMargin)
         when(direction){
