@@ -8,6 +8,7 @@ import com.example.tanchiki.enums.Direction
 import com.example.tanchiki.models.Coordinate
 import com.example.tanchiki.models.Element
 import utils.checkTankCanMoveThroughBorder
+import utils.getElementByCoordinates
 
 class TankDrawer(val container: FrameLayout) {
     var currentDirection = Direction.UP
@@ -72,6 +73,5 @@ class TankDrawer(val container: FrameLayout) {
         return coordinateList
     }
 
-    private fun getElementByCoordinates(coordinate: Coordinate, elementsOnContainer: List<Element>) =
-        elementsOnContainer.firstOrNull { it.coordinate == coordinate}
+
 }
