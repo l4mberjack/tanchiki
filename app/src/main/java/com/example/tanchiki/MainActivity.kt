@@ -21,6 +21,7 @@ import com.example.tanchiki.drawers.GridDrawer
 import com.example.tanchiki.drawers.TankDrawer
 import com.example.tanchiki.enums.Direction
 import com.example.tanchiki.enums.Material
+import utils.LevelStorage
 
 const val CELL_SIZE = 50
 
@@ -42,6 +43,9 @@ class MainActivity : AppCompatActivity() {
     private val bulletDrawer by lazy{
         BulletDrawer(binding.container)
     }
+    private val levelStorage by lazy{
+        LevelStorage(this)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,6 +64,7 @@ class MainActivity : AppCompatActivity() {
             elementsDrawer.onTouchContainer(event.x,event.y)
             return@setOnTouchListener true
         }
+        elementsDrawer.drawElementsList(levelStorage.loadLevel())
     }
 
     private fun switchEditMode(){
@@ -85,6 +90,10 @@ class MainActivity : AppCompatActivity() {
                 switchEditMode()
                 return true
         }
+            R.id.menu_save -> {
+                levelStorage.saveLevel(elementsDrawer.elementsOnContainer)
+                return true
+            }
 
             else -> super.onOptionsItemSelected(item)
         }
