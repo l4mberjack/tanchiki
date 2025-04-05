@@ -10,7 +10,5 @@ data class Element constructor(
     val width: Int,
     val height: Int
 ){
-    fun drawElement(container: FrameLayout) {
-        TODO("Not yet implemented")
-    }
+
 }

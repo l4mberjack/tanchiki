@@ -16,7 +16,7 @@ fun View.checkTankCanMoveThroughBorder(coordinate: Coordinate): Boolean{
             coordinate.left + this.width <= binding.container.width
 }
 
-private fun Element.drawElement(container: FrameLayout){
+fun Element.drawElement(container: FrameLayout){
     val view = ImageView(container.context)
     val layoutParams = FrameLayout.LayoutParams(
         this.material.width * CELL_SIZE,
