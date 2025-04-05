@@ -1,15 +1,18 @@
 package com.example.tanchiki.drawers
 
+import android.app.Activity
 import android.widget.FrameLayout
 import android.view.View
 import android.widget.ImageView
 import com.example.tanchiki.CELL_SIZE
 import com.example.tanchiki.binding
+import com.example.tanchiki.enums.CELLS_EAGLE_WIDTH
 import com.example.tanchiki.enums.Direction
 import com.example.tanchiki.enums.Material
 import com.example.tanchiki.models.Coordinate
 import com.example.tanchiki.models.Element
 import utils.getElementByCoordinates
+import java.security.cert.CertPath
 
 
 
@@ -92,28 +95,18 @@ class ElementsDrawer (val container: FrameLayout) {
     }
 
     private fun drawView(coordinate: Coordinate) {
-        // removeIfSingleInstance()
         removeUnwantedInstances()
-        val view = ImageView(container.context)
-        val layoutParams = FrameLayout.LayoutParams(
-            currentMaterial.width * CELL_SIZE,
-            currentMaterial.height * CELL_SIZE
-        )
-        view.setImageResource(currentMaterial.Image)
-        layoutParams.topMargin = coordinate.top
-        layoutParams.leftMargin = coordinate.left
         val element = Element(
             material = currentMaterial,
             coordinate = coordinate,
             width = currentMaterial.width,
             height = currentMaterial.height
         )
-        view.id = element.viewId
-        view.layoutParams = layoutParams
-        view.scaleType = ImageView.ScaleType.FIT_XY
-        container.addView(view)
+        element.drawElement(container)
         elementsOnContainer.add(element)
     }
+
+
 
     private fun getElementsUnderCurrentCoordinate(coordinate: Coordinate): List<Element>{
         val elements = mutableListOf<Element>()

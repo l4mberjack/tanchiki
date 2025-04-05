@@ -1,5 +1,6 @@
 package com.example.tanchiki.models
 import android.view.View
+import android.widget.FrameLayout
 import com.example.tanchiki.enums.Material
 
 data class Element constructor(
@@ -9,4 +10,7 @@ data class Element constructor(
     val width: Int,
     val height: Int
 ){
+    fun drawElement(container: FrameLayout) {
+        TODO("Not yet implemented")
+    }
 }
