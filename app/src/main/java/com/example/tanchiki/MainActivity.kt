@@ -69,18 +69,28 @@ class MainActivity : AppCompatActivity() {
             return@setOnTouchListener true
         }
         elementsDrawer.drawElementsList(levelStorage.loadLevel())
+        hideSettings()
     }
 
     private fun switchEditMode(){
         if(editMode){
-            gridDrawer.removeGrid()
-            binding.materialsContainer.visibility = INVISIBLE
+            showSettings()
         }
         else{
-            gridDrawer.drawGrid()
-            binding.materialsContainer.visibility = VISIBLE
+            hideSettings()
         }
-        editMode = !editMode
+    }
+
+    private fun showSettings(){
+        gridDrawer.drawGrid()
+        binding.materialsContainer.visibility = VISIBLE
+        elementsDrawer.changeElementVisibility(true)
+    }
+
+    private fun hideSettings(){
+        gridDrawer.removeGrid()
+        binding.materialsContainer.visibility = GONE
+        elementsDrawer.changeElementVisibility(false)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
