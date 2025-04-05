@@ -17,6 +17,7 @@ import com.example.tanchiki.enums.Direction.RIGHT
 import com.example.tanchiki.databinding.ActivityMainBinding
 import com.example.tanchiki.drawers.BulletDrawer
 import com.example.tanchiki.drawers.ElementsDrawer
+import com.example.tanchiki.drawers.EnemyDrawer
 import com.example.tanchiki.drawers.GridDrawer
 import com.example.tanchiki.drawers.TankDrawer
 import com.example.tanchiki.enums.Direction
@@ -47,6 +48,10 @@ class MainActivity : AppCompatActivity() {
         LevelStorage(this)
     }
 
+    private val enemyDrawer by lazy {
+        EnemyDrawer(binding.container)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -60,8 +65,6 @@ class MainActivity : AppCompatActivity() {
         binding.editorConcrete.setOnClickListener{ elementsDrawer.currentMaterial = Material.CONCRETE }
         binding.editorGrass.setOnClickListener{ elementsDrawer.currentMaterial = Material.GRASS }
         binding.editorEagle.setOnClickListener{ elementsDrawer.currentMaterial = Material.EAGLE }
-        binding.editorEnemyRespawn.setOnClickListener{ elementsDrawer.currentMaterial = Material.ENEMY_TANK_RESPAWN }
-        binding.editorPlayerRespawn.setOnClickListener{ elementsDrawer.currentMaterial = Material.PLAYER_TANK_RESPAWN }
 
 
         binding.container.setOnTouchListener{ _, event->
@@ -84,13 +87,11 @@ class MainActivity : AppCompatActivity() {
     private fun showSettings(){
         gridDrawer.drawGrid()
         binding.materialsContainer.visibility = VISIBLE
-        elementsDrawer.changeElementVisibility(true)
     }
 
     private fun hideSettings(){
         gridDrawer.removeGrid()
         binding.materialsContainer.visibility = GONE
-        elementsDrawer.changeElementVisibility(false)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
