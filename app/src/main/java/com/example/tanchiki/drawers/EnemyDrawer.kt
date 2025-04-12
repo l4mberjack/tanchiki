@@ -8,6 +8,7 @@ import com.example.tanchiki.enums.CELLS_EAGLE_HEIGHT
 import com.example.tanchiki.enums.CELLS_TANKS_SIZE
 import com.example.tanchiki.enums.Material
 import com.example.tanchiki.models.Element
+import utils.drawElement
 
 private const val MAX_ENEMY_AMOUNT = 20
 
