@@ -32,7 +32,6 @@ lateinit var binding: ActivityMainBinding
 class MainActivity : AppCompatActivity() {
     private var editMode = false
 
-
     private val playerTank = Tank(
         Element(
             R.id.myTank,
@@ -42,6 +41,7 @@ class MainActivity : AppCompatActivity() {
             Material.PLAYER_TANK.height,
         ),UP
     )
+
     private val gridDrawer by lazy{
         GridDrawer(binding.container)
     }
@@ -50,16 +50,16 @@ class MainActivity : AppCompatActivity() {
         ElementsDrawer(binding.container)
     }
 
-
     private val bulletDrawer by lazy{
         BulletDrawer(binding.container)
     }
+
     private val levelStorage by lazy{
         LevelStorage(this)
     }
 
     private val enemyDrawer by lazy {
-        EnemyDrawer(binding.container)
+        EnemyDrawer(binding.container, elementsDrawer.elementsOnContainer)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -121,7 +121,7 @@ class MainActivity : AppCompatActivity() {
                 return true
             }
             R.id.menu_play ->{
-                startGame()
+                startTheGame()
                 true
             }
 
@@ -129,11 +129,12 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun startGame() {
+    private fun startTheGame() {
         if(editMode){
             return
         }
-        enemyDrawer.startEnemyDrawing(elementsDrawer.elementsOnContainer)
+        enemyDrawer.startEnemyCreation()
+        enemyDrawer.moveEnemyTanks()
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {

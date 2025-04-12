@@ -7,6 +7,9 @@ import com.example.tanchiki.binding
 import utils.checkTankCanMoveThroughBorder
 import utils.getElementByCoordinates
 import com.example.tanchiki.enums.Direction
+import com.example.tanchiki.enums.Material
+import utils.runOnUiThread
+import kotlin.random.Random
 
 class Tank(
      val element: Element,
@@ -26,13 +29,26 @@ class Tank(
         if (view.checkTankCanMoveThroughBorder(nextCoordinate)
             && element.checkTankCanMoveThroughMaterial(nextCoordinate ,elementsOnContainer)
         ) {
-            binding.container.removeView(binding.myTank)
-            binding.container.addView(binding.myTank)
+            emulateViewMoving(container, view)
             element.coordinate = nextCoordinate
         } else {
             element.coordinate = currentCoordinate
             (view.layoutParams as FrameLayout.LayoutParams).topMargin = currentCoordinate.top
             (view.layoutParams as FrameLayout.LayoutParams).leftMargin = currentCoordinate.left
+            changeDirectionForEnemyTank()
+        }
+    }
+
+    private fun changeDirectionForEnemyTank() {
+        if (element.material == Material.ENEMY_TANK) {
+            val randomDirection = Direction.values()[Random.nextInt((Direction.values().size))]
+        }
+    }
+
+    private fun emulateViewMoving(container: FrameLayout, view: View) {
+        container.runOnUiThread {
+            binding.container.removeView(view)
+            binding.container.addView(view, 0)
         }
     }
 
