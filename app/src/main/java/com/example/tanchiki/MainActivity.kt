@@ -24,7 +24,6 @@ import com.example.tanchiki.enums.Material
 import com.example.tanchiki.models.Coordinate
 import com.example.tanchiki.models.Element
 import com.example.tanchiki.models.Tank
-import utils.LevelStorage
 
 const val CELL_SIZE = 50
 
@@ -37,8 +36,6 @@ class MainActivity : AppCompatActivity() {
             R.id.myTank,
             Material.PLAYER_TANK,
             Coordinate(0,0),
-            Material.PLAYER_TANK.width,
-            Material.PLAYER_TANK.height,
         ),UP
     )
 

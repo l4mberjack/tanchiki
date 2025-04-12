@@ -100,8 +100,6 @@ class ElementsDrawer (val container: FrameLayout) {
         val element = Element(
             material = currentMaterial,
             coordinate = coordinate,
-            width = currentMaterial.width,
-            height = currentMaterial.height
         )
         element.drawElement(container)
         elementsOnContainer.add(element)
