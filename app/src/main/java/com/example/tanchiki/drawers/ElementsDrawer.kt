@@ -1,20 +1,15 @@
 package com.example.tanchiki.drawers
 
-import android.app.Activity
 import android.widget.FrameLayout
 import android.view.View
-import android.widget.ImageView
 import com.example.tanchiki.CELL_SIZE
 import com.example.tanchiki.binding
-import com.example.tanchiki.enums.CELLS_EAGLE_WIDTH
 import com.example.tanchiki.enums.Direction
 import com.example.tanchiki.enums.Material
 import com.example.tanchiki.models.Coordinate
 import com.example.tanchiki.models.Element
 import utils.drawElement
 import utils.getElementByCoordinates
-import java.security.cert.CertPath
-
 
 
 class ElementsDrawer (val container: FrameLayout) {
@@ -40,7 +35,7 @@ class ElementsDrawer (val container: FrameLayout) {
     private fun drawOrReplaceView(coordinate: Coordinate) {
         val viewOnCoordinate = getElementByCoordinates(coordinate, elementsOnContainer)
         if (viewOnCoordinate == null){
-            drawView(coordinate)
+            createElementDrawView(coordinate)
             return
         }
         if (viewOnCoordinate.material != currentMaterial) {
@@ -50,7 +45,7 @@ class ElementsDrawer (val container: FrameLayout) {
 
     private fun replaceView(coordinate: Coordinate){
         eraseView(coordinate)
-        drawView(coordinate)
+        createElementDrawView(coordinate)
     }
 
     private fun eraseView(coordinate: Coordinate){
@@ -68,14 +63,6 @@ class ElementsDrawer (val container: FrameLayout) {
         }
     }
 
-//    private fun removeIfSingleInstance() {
-//        if (currentMaterial.canExistOnlyOne) {
-//            elementsOnContainer.firstOrNull { it.material == Material.EAGLE }?.coordinate?.let {
-//                eraseView(it)
-//            }
-//        }
-//    }
-
     private fun removeUnwantedInstances() {
         if (currentMaterial.elementsAmountOnScreen != 0) {
             val erasingElements = elementsOnContainer.filter { it.material == currentMaterial }
@@ -91,20 +78,23 @@ class ElementsDrawer (val container: FrameLayout) {
         }
         for(element in elements){
             currentMaterial = element.material
-            drawView((element.coordinate))
+            drawElement(element)
         }
     }
 
-    private fun drawView(coordinate: Coordinate) {
-        removeUnwantedInstances()
+    private fun createElementDrawView(coordinate: Coordinate) {
         val element = Element(
             material = currentMaterial,
             coordinate = coordinate,
         )
+        drawElement(element)
+    }
+
+    private fun drawElement(element: Element) {
+        removeUnwantedInstances()
         element.drawElement(container)
         elementsOnContainer.add(element)
     }
-
 
 
     private fun getElementsUnderCurrentCoordinate(coordinate: Coordinate): List<Element>{

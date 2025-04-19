@@ -24,6 +24,7 @@ import com.example.tanchiki.enums.Material
 import com.example.tanchiki.models.Coordinate
 import com.example.tanchiki.models.Element
 import com.example.tanchiki.models.Tank
+import utils.getElementByCoordinates
 
 const val CELL_SIZE = 50
 
@@ -31,12 +32,30 @@ lateinit var binding: ActivityMainBinding
 class MainActivity : AppCompatActivity() {
     private var editMode = false
 
-    private val playerTank = Tank(
+    private val playerTank by lazy {
+        Tank(
+            Element(
+                material = Material.PLAYER_TANK,
+                coordinate = getPlayerTankCoordinate(),
+            ), UP
+        )
+    }
+
+    private val eagle by lazy{
         Element(
-            R.id.myTank,
-            Material.PLAYER_TANK,
-            Coordinate(0,0),
-        ),UP
+            material = Material.EAGLE,
+            coordinate = getEagleCoordinate()
+        )
+    }
+
+    private fun getPlayerTankCoordinate()= Coordinate (
+        top = binding.container.layoutParams.height + 2 * Material.PLAYER_TANK.height * CELL_SIZE,
+        left = (binding.container.width - binding.container + binding.container.layoutParams.width % 2) / 2 + 12 * CELL_SIZE
+    )
+
+    private fun getEagleCoordinate() =  Coordinate(
+        top = binding.container.layoutParams.height + 2 * Material.EAGLE.height * CELL_SIZE,
+        left = (binding.container.layoutParams.width  + binding.container.layoutParams.width % 2) / 2 * Material.EAGLE.width * CELL_SIZE /2
     )
 
     private val gridDrawer by lazy{
@@ -61,7 +80,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -79,8 +97,8 @@ class MainActivity : AppCompatActivity() {
             return@setOnTouchListener true
         }
         elementsDrawer.drawElementsList(levelStorage.loadLevel())
+        elementsDrawer.drawElementsList(listOf(playerTank.element,eagle))
         hideSettings()
-        elementsDrawer.elementsOnContainer.add(playerTank.element)
     }
 
     private fun switchEditMode(){
@@ -141,7 +159,7 @@ class MainActivity : AppCompatActivity() {
             KEYCODE_DPAD_LEFT -> move(LEFT)
             KEYCODE_DPAD_RIGHT -> move(RIGHT)
             KEYCODE_SPACE -> bulletDrawer.makeBulletMove(
-                binding.myTank,
+                binding.container.findViewById(playerTank.element.viewId),
                 playerTank.direction,
                 elementsDrawer.elementsOnContainer
             )
