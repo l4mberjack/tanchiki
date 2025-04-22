@@ -145,7 +145,14 @@ class ElementsDrawer (val container: FrameLayout) {
             binding.container.removeView(binding.myTank)
             binding.container.addView(binding.myTank)
         } else {
-            (myTank.layoutParams as FrameLayout.LayoutParams).topMargin = currentCoordinate.top
+            (myTank.layoutParams as FrameLayout.Layout
+                    top = (height - height % 2)
+                    - (height - height % 2) % CELL_SIZE
+                    - Material.EAGLE.height * CELL_SIZE,
+            left = (width - width % (2 * CELL_SIZE)) / 2
+            - Material.EAGLE.width / 2 * CELL_SIZE
+            )
+            Params).topMargin = currentCoordinate.top
             (myTank.layoutParams as FrameLayout.LayoutParams).leftMargin = currentCoordinate.left
         }
 

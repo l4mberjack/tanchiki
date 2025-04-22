@@ -9,6 +9,8 @@ import utils.getElementByCoordinates
 import com.example.tanchiki.enums.Direction
 import com.example.tanchiki.drawers.BulletDrawer
 import com.example.tanchiki.enums.Material
+import utils.checkIfChanceBiggerThanRandom
+import utils.getTankByCoordinates
 import utils.runOnUiThread
 import kotlin.random.Random
 
@@ -33,10 +35,20 @@ class Tank constructor(
         ) {
             emulateViewMoving(container, view)
             element.coordinate = nextCoordinate
+            generateRandomDirectionForEnemyTank()
         } else {
             element.coordinate = currentCoordinate
             (view.layoutParams as FrameLayout.LayoutParams).topMargin = currentCoordinate.top
             (view.layoutParams as FrameLayout.LayoutParams).leftMargin = currentCoordinate.left
+            changeDirectionForEnemyTank()
+        }
+    }
+
+    private fun generateRandomDirectionForEnemyTank() {
+        if (element.material != Material.ENEMY_TANK){
+            return
+        }
+        if (checkIfChanceBiggerThanRandom(10)) {
             changeDirectionForEnemyTank()
         }
     }
@@ -57,9 +69,12 @@ class Tank constructor(
     private fun Element.checkTankCanMoveThroughMaterial(
         coordinate: Coordinate,
         elementsOnContainer: List<Element>
-    ): Boolean{
+    ): Boolean {
             for(anyCoordinate in getTankCoordinates(coordinate)) {
-                val element = getElementByCoordinates(anyCoordinate, elementsOnContainer)
+                var element = getElementByCoordinates(anyCoordinate, elementsOnContainer)
+                if (element == null) {
+                    element = getTankByCoordinates(anyCoordinate, bulletDrawer.enemyDrawer.tanks)
+                }
                 if (element != null && !element.material.tankConGoThrough) {
                     if (this == element) {
                         continue

@@ -8,12 +8,20 @@ import com.example.tanchiki.CELL_SIZE
 import com.example.tanchiki.binding
 import com.example.tanchiki.models.Coordinate
 import com.example.tanchiki.models.Element
+import com.example.tanchiki.models.Tank
+import kotlin.random.Random
+
+const val TOTAL_PERCENT = 100
 
 fun View.checkTankCanMoveThroughBorder(coordinate: Coordinate): Boolean{
     return coordinate.top >= 0 &&
             coordinate.top + this.height <= binding.container.height &&
             coordinate.left >= 0 &&
             coordinate.left + this.width <= binding.container.width
+}
+
+fun getTankByCoordinates(coordinate: Coordinate, tankList: List<Tank>): Element? {
+    return  getElementByCoordinates(coordinate, tankList.map { it.element })
 }
 
 fun Element.drawElement(container: FrameLayout){
@@ -57,4 +65,8 @@ fun getElementByCoordinates(
         }
     }
     return null
+}
+
+fun checkIfChanceBiggerThanRandom(percentChance: Int): Boolean {
+    return Random.nextInt(TOTAL_PERCENT) <= percentChance
 }
