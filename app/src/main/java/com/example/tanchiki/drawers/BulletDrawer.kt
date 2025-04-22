@@ -15,6 +15,7 @@ import com.example.tanchiki.models.Tank
 import utils.checkTankCanMoveThroughBorder
 import utils.getElementByCoordinates
 import utils.getTankByCoordinates
+import utils.getViewCoordinate
 import utils.runOnUiThread
 
 private const val BULLET_WIDTH = 15
@@ -40,10 +41,8 @@ class BulletDrawer (
             bulletThread = Thread(Runnable{
                 val view = container.findViewById<View>(this.tank.element.viewId)
                 val bullet = createBullet(view, currentDirection)
-                while (bullet.checkTankCanMoveThroughBorder(
-                        Coordinate(bullet.top, bullet.left)
-                    ) && canBulletGoFurther
-                ) {
+                while (bullet.canBulletGoFuther())
+                {
                     when (currentDirection){
                         Direction.UP -> (bullet.layoutParams as FrameLayout.LayoutParams).topMargin -= BULLET_HEIGHT
                         Direction.DOWN -> (bullet.layoutParams as FrameLayout.LayoutParams).topMargin += BULLET_HEIGHT
@@ -53,9 +52,8 @@ class BulletDrawer (
                     Thread.sleep(30)
                     chooseBehaviourInTermsOfDir(
                         currentDirection,
-                        Coordinate(
-                            (bullet.layoutParams as FrameLayout.LayoutParams).topMargin,
-                            (bullet.layoutParams as FrameLayout.LayoutParams).leftMargin))
+                        bullet.getViewCoordinate()
+                    )
                     container.runOnUiThread {
                         container.removeView(bullet)
                         container.addView(bullet)
@@ -68,6 +66,9 @@ class BulletDrawer (
             bulletThread!!.start()
         }
     }
+
+    private fun View.canBulletGoFurther()=
+        this.checkTankCanMoveThroughBorder(this.getViewCoordinate()) && canBulletGoFurther
     
     private fun createBullet(myTank: View, currentDirection: Direction): ImageView{
         return ImageView(container.context)

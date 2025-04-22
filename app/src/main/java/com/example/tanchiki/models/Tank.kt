@@ -11,6 +11,7 @@ import com.example.tanchiki.drawers.BulletDrawer
 import com.example.tanchiki.enums.Material
 import utils.checkIfChanceBiggerThanRandom
 import utils.getTankByCoordinates
+import utils.getViewCoordinate
 import utils.runOnUiThread
 import kotlin.random.Random
 
@@ -25,8 +26,7 @@ class Tank constructor(
         elementsOnContainer: List<Element>
     ) {
         val view = container.findViewById<View>(element.viewId) ?: return
-        val layoutParams = view.layoutParams as FrameLayout.LayoutParams
-        val currentCoordinate = getTankNextCoordinate(view)
+        val currentCoordinate = view.getViewCoordinate()
         val nextCoordinate = getTankNextCoordinate(view)
         this.direction = direction
         view.rotation = direction.rotation
@@ -120,10 +120,9 @@ class Tank constructor(
         return coordinateList
     }
 
-    private fun getTankCurrentCoordinate(tank: View): Coordinate{
-        return Coordinate(
-            (tank.layoutParams as FrameLayout.LayoutParams).topMargin,
-            (tank.layoutParams as FrameLayout.LayoutParams).leftMargin
-        )
+    fun alreadyHasBullet(): Boolean {
+
     }
+
+
 }

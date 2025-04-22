@@ -19,6 +19,7 @@ import com.example.tanchiki.drawers.EnemyDrawer
 import com.example.tanchiki.drawers.GridDrawer
 import com.example.tanchiki.enums.Direction
 import com.example.tanchiki.enums.Material
+import com.example.tanchiki.models.Bullet
 import com.example.tanchiki.models.Coordinate
 import com.example.tanchiki.models.Element
 import com.example.tanchiki.models.Tank
@@ -120,6 +121,13 @@ class MainActivity : AppCompatActivity() {
             })
     }
 
+    private val bulletDrawer by lazy{
+        BulletDrawer(
+            binding.container,
+            elementsDrawer.elementsOnContainer,
+            enemyDrawer
+        )
+    }
     private fun switchEditMode(){
         if(editMode){
             showSettings()
