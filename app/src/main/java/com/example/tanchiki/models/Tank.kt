@@ -7,13 +7,15 @@ import com.example.tanchiki.binding
 import utils.checkTankCanMoveThroughBorder
 import utils.getElementByCoordinates
 import com.example.tanchiki.enums.Direction
+import com.example.tanchiki.drawers.BulletDrawer
 import com.example.tanchiki.enums.Material
 import utils.runOnUiThread
 import kotlin.random.Random
 
-class Tank(
+class Tank constructor(
      val element: Element,
-     var direction: Direction
+     var direction: Direction,
+     val bulletDrawer: BulletDrawer
 ) {
     fun move(
         direction: Direction,
