@@ -8,6 +8,7 @@ import utils.checkTankCanMoveThroughBorder
 import utils.getElementByCoordinates
 import com.example.tanchiki.enums.Direction
 import com.example.tanchiki.drawers.BulletDrawer
+import com.example.tanchiki.drawers.EnemyDrawer
 import com.example.tanchiki.enums.Material
 import utils.checkIfChanceBiggerThanRandom
 import utils.getTankByCoordinates
@@ -18,7 +19,7 @@ import kotlin.random.Random
 class Tank constructor(
      val element: Element,
      var direction: Direction,
-     val bulletDrawer: BulletDrawer
+     private val enemyDrawer: EnemyDrawer
 ) {
     fun move(
         direction: Direction,
@@ -73,7 +74,7 @@ class Tank constructor(
             for(anyCoordinate in getTankCoordinates(coordinate)) {
                 var element = getElementByCoordinates(anyCoordinate, elementsOnContainer)
                 if (element == null) {
-                    element = getTankByCoordinates(anyCoordinate, bulletDrawer.enemyDrawer.tanks)
+                    element = getTankByCoordinates(anyCoordinate, enemyDrawer.tanks)
                 }
                 if (element != null && !element.material.tankConGoThrough) {
                     if (this == element) {

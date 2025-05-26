@@ -7,6 +7,7 @@ import com.example.tanchiki.binding
 import com.example.tanchiki.enums.CELLS_TANKS_SIZE
 import com.example.tanchiki.enums.Direction
 import com.example.tanchiki.enums.Material
+import com.example.tanchiki.models.Bullet
 import com.example.tanchiki.models.Element
 import com.example.tanchiki.models.Tank
 import utils.checkIfChanceBiggerThanRandom
@@ -23,6 +24,7 @@ class EnemyDrawer(
     private var currentCoordinate:Coordinate
     val tanks = mutableListOf<Tank>()
     private var moveAllTanksThread: Thread? = null
+    lateinit var bulletDrawer: BulletDrawer
 
     init {
         respawnList = getRespawnList()
@@ -60,7 +62,7 @@ class EnemyDrawer(
             material = Material.ENEMY_TANK,
             coordinate = currentCoordinate,
             ), Direction.DOWN,
-            BulletDrawer(container, elements, this)
+            this
         )
         enemyTank.element.drawElement(container)
         tanks.add(enemyTank)
@@ -80,7 +82,7 @@ class EnemyDrawer(
             tanks.forEach{
                 it.move(it.direction, container, elements)
                 if (checkIfChanceBiggerThanRandom(10)) {
-                    it.bulletDrawer.makeBulletMove(it)
+                    bulletDrawer.addNewBulletForTank(it)
                 }
             }
         })

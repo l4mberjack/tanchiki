@@ -1,11 +1,10 @@
 package com.example.tanchiki.models
 
-import android.graphics.Path.Direction
 import android.view.View
 
 data class Bullet(
     val view: View,
-    val direction: Direction,
+    val direction: com.example.tanchiki.enums.Direction,
     val tank: Tank,
     var canMoveFurther: Boolean = true
 ) {

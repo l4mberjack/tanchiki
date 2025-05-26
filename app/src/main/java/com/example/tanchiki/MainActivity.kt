@@ -39,9 +39,13 @@ class MainActivity : AppCompatActivity() {
                 material = Material.PLAYER_TANK,
                 coordinate = getPlayerTankCoordinate(elementWidth, elementHeight),
             ), UP,
-            BulletDrawer(binding.container, elementsDrawer.elementsOnContainer, enemyDrawer)
+            enemyDrawer
         )
         return playerTank
+    }
+
+    private val gridDrawer by lazy {
+        GridDrawer(binding.container)
     }
 
     private fun createEagle(elementWidth: Int, elementHeight: Int): Element {
@@ -61,10 +65,13 @@ class MainActivity : AppCompatActivity() {
                 - Material.PLAYER_TANK.width * CELL_SIZE
     )
 
-    private fun getEagleCoordinate(width: Int, height: Int) =  Coordinate(
-    private val gridDrawer by lazy{
-        GridDrawer(binding.container)
-    }
+    private fun getEagleCoordinate(width: Int, height: Int) = Coordinate(
+        top = (height - height % 2)
+                - (height - height % 2) % CELL_SIZE
+                - Material.EAGLE.height * CELL_SIZE,
+        left = (width - width % (2 * CELL_SIZE)) / 2
+                - Material.EAGLE.width / 2 * CELL_SIZE
+    )
 
     private val elementsDrawer by lazy{
         ElementsDrawer(binding.container)
@@ -117,6 +124,7 @@ class MainActivity : AppCompatActivity() {
                     eagle = createEagle(elementWidth, elementHeight)
 
                     elementsDrawer.drawElementsList(listOf(playerTank.element, eagle))
+                    enemyDrawer.bulletDrawer = bulletDrawer
                 }
             })
     }
@@ -137,12 +145,13 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun showSettings(){
-        gridDrawer.drawGrid()
-        binding.materialsContainer.visibility = VISIBLE
+    private fun showSettings() {
+        gridDrawer.drawGrid() // рисуется сетка
+        binding.materialsContainer.visibility = VISIBLE // отобр. контейнер с мат-ами
     }
 
-    private fun hideSettings(){
+    // метод для скрытия меню
+    private fun hideSettings() {
         gridDrawer.removeGrid()
         binding.materialsContainer.visibility = INVISIBLE
     }
@@ -185,7 +194,7 @@ class MainActivity : AppCompatActivity() {
             KEYCODE_DPAD_DOWN -> move(DOWN)
             KEYCODE_DPAD_LEFT -> move(LEFT)
             KEYCODE_DPAD_RIGHT -> move(RIGHT)
-            KEYCODE_SPACE -> playerTank.bulletDrawer.makeBulletMove(playerTank)
+            KEYCODE_SPACE -> bulletDrawer.addNewBulletForTank(playerTank)
         }
         return super.onKeyDown(keyCode, event)
     }
