@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.FrameLayout
 import android.widget.ImageView
 import com.example.tanchiki.CELL_SIZE
+import com.example.tanchiki.GameCore.isPlaying
 import com.example.tanchiki.R
 import com.example.tanchiki.enums.Direction
 import com.example.tanchiki.enums.Material
@@ -44,6 +45,9 @@ class BulletDrawer (
     private fun moveAllBullets(){
         Thread(Runnable {
             while (true){
+                if(!isPlaying()){
+                    continue
+                }
                 interactWithAllBullets()
                 Thread.sleep(30)
             }
@@ -183,6 +187,7 @@ class BulletDrawer (
             }
         }
     }
+
 
     private fun removeTank(element: Element) {
         val tanksElements = enemyDrawer.tanks.map { it.element }
