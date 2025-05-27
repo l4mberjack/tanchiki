@@ -9,7 +9,6 @@ import android.view.MenuItem
 import android.view.View.*
 import android.view.ViewTreeObserver.OnGlobalLayoutListener
 import androidx.core.content.ContextCompat
-import com.example.tanchiki.GameCore.isPlaying
 import com.example.tanchiki.enums.Direction.UP
 import com.example.tanchiki.enums.Direction.DOWN
 import com.example.tanchiki.enums.Direction.LEFT
@@ -92,6 +91,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        soundManager.loadSounds()
         supportActionBar?.title = "Menu"
 
         binding.editorClear.setOnClickListener{ elementsDrawer.currentMaterial = Material.EMPTY }
@@ -136,7 +136,7 @@ class MainActivity : AppCompatActivity() {
             binding.container,
             elementsDrawer.elementsOnContainer,
             enemyDrawer,
-            soundManager,
+            mainSoundPlayer,
             gameCore
         )
     }
@@ -145,8 +145,8 @@ class MainActivity : AppCompatActivity() {
         GameCore(this)
     }
 
-    private val soundManager by lazy {
-        soundManager(this)
+    private val mainSoundPlayer by lazy {
+        MainSoundPlayer(this)
     }
     private fun switchEditMode(){
         if(editMode){

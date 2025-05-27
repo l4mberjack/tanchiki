@@ -1,7 +1,7 @@
 package com.example.tanchiki.drawers
 
 
-import com.example.tanchiki.SoundManager
+import sounds.SoundManager
 import android.app.Activity
 import android.view.View
 import android.widget.FrameLayout
@@ -15,7 +15,6 @@ import com.example.tanchiki.models.Bullet
 import com.example.tanchiki.models.Coordinate
 import com.example.tanchiki.models.Element
 import com.example.tanchiki.models.Tank
-import utils.checkTankCanMoveThroughBorder
 import utils.getElementByCoordinates
 import utils.getTankByCoordinates
 import utils.getViewCoordinate
@@ -29,7 +28,7 @@ class BulletDrawer(
     private val container: FrameLayout,
     private val elements: MutableList<Element>,
     private val enemyDrawer: EnemyDrawer,
-    private val soundManager: SoundManager,
+    private val soundManager: sounds.SoundManager,
     private val gameCore: GameCore
 
 ) {
