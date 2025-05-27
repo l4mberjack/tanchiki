@@ -1,6 +1,7 @@
 package com.example.tanchiki.drawers
 
 
+import SoundManager
 import android.app.Activity
 import android.view.View
 import android.widget.FrameLayout
@@ -37,6 +38,7 @@ class BulletDrawer (
         val view = container.findViewById<View>(tank.element.viewId) ?: return
         if (tank.alreadyHasBullet()) return
         allBullets.add(Bullet(createBullet(view, tank.direction), tank.direction, tank))
+        SoundManager.bulletShot()
     }
 
     private fun Tank.alreadyHasBullet(): Boolean =
@@ -120,7 +122,7 @@ class BulletDrawer (
             }
     }
 
-    private fun getCoordinatesForTopOrBottomDir(bulletCoordinate: Coordinate): List<Coordinate>{
+    private fun getCoordinatesForTopOrBottomDirection(bulletCoordinate: Coordinate): List<Coordinate>{
         val leftCell = bulletCoordinate.left - bulletCoordinate.left % CELL_SIZE
         val rightCell = leftCell + CELL_SIZE
         val topCoordinate = bulletCoordinate.top - bulletCoordinate.top %  CELL_SIZE
@@ -146,7 +148,7 @@ class BulletDrawer (
     ){
         when(bullet.direction) {
             Direction.DOWN, Direction.UP -> {
-                compareCollections(getCoordinatesForTopOrBottomDir(bullet), bullet)
+                compareCollections(getCoordinatesForTopOrBottomDirection(bullet), bullet)
             }
             Direction.LEFT, Direction.RIGHT -> {
                 compareCollections(getCoordinatesForLeftOrRightDirection(bullet), bullet)
@@ -192,6 +194,8 @@ class BulletDrawer (
     private fun removeTank(element: Element) {
         val tanksElements = enemyDrawer.tanks.map { it.element }
         val tankIndex = tanksElements.indexOf(element)
+        if (tankIndex < 0) return
+        SoundManager.bulletBurst()
         enemyDrawer.removeTank(tankIndex)
     }
 

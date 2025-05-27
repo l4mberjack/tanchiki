@@ -1,5 +1,6 @@
 package com.example.tanchiki.drawers
 
+import SoundManager
 import com.example.tanchiki.models.Coordinate
 import com.example.tanchiki.CELL_SIZE
 import android.widget.FrameLayout
@@ -82,6 +83,11 @@ class EnemyDrawer(
     }
 
     private fun goThroughAllTanks() {
+        if (tanks.isNotEmpty()){
+            SoundManager.tankMove()
+        } else {
+            SoundManager.tankStop()
+        }
             tanks.toList().forEach{
                 it.move(it.direction, container, elements)
                 if (checkIfChanceBiggerThanRandom(10)) {
@@ -109,7 +115,6 @@ class EnemyDrawer(
     }
 
     fun removeTank(tankIndex: Int) {
-        if (tankIndex < 0) return
         tanks.removeAt(tankIndex)
     }
 

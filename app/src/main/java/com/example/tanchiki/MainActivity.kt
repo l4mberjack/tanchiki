@@ -1,5 +1,6 @@
 package com.example.tanchiki
 
+import SoundManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.KeyEvent
@@ -93,6 +94,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        SoundManager.context = this
 
         supportActionBar?.title = "Menu"
 
@@ -197,6 +200,7 @@ class MainActivity : AppCompatActivity() {
     private fun pauseTheGame() {
         item.icon = ContextCompat.getDrawable(this, R.drawable.play)
         GameCore.pauseTheGame()
+        SoundManager.pauseSounds()
     }
 
     override fun onPause() {
@@ -206,6 +210,7 @@ class MainActivity : AppCompatActivity() {
     private fun startTheGame() {
         item.icon = ContextCompat.getDrawable(this, R.drawable.baseline_pause_24)
         enemyDrawer.startEnemyCreation()
+        SoundManager.playIntroMusic()
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
@@ -220,6 +225,25 @@ class MainActivity : AppCompatActivity() {
             KEYCODE_SPACE -> bulletDrawer.addNewBulletForTank(playerTank)
         }
         return super.onKeyDown(keyCode, event)
+    }
+
+    override fun onKeyUp(keyCode: Int,event: KeyEvent?):Boolean{
+        when(keyCode){
+            KEYCODE_DPAD_UP, KEYCODE_DPAD_LEFT,
+                KEYCODE_DPAD_DOWN, KEYCODE_DPAD_RIGHT -> onButtonReleased()
+        }
+        return super.onKeyUp(keyCode, event)
+    }
+
+    private fun onButtonReleased() {
+        if(enemyDrawer.tanks.isEmpty()){
+            SoundManager.tankStop()
+        }
+    }
+
+    private fun onButtonPressed(direction: Direction){
+        SoundManager.tankMove()
+        playerTank.move(direction, binding.container, elementsDrawer.elementsOnContainer)
     }
 
 
