@@ -2,5 +2,6 @@
     <string name="app_name">Tanchiki</string>
     <string name="settings">Settings</string>
     <string name="save">Save</string>
-    <string name="play" />
+    <string name="play"/>
+    <string name="game_over">Game\nover</string>
 </resources>

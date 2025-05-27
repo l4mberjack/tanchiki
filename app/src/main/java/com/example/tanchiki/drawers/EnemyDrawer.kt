@@ -4,7 +4,8 @@ import SoundManager
 import com.example.tanchiki.models.Coordinate
 import com.example.tanchiki.CELL_SIZE
 import android.widget.FrameLayout
-import com.example.tanchiki.GameCore.isPlaying
+import com.example.tanchiki.GameCore
+import com.example.tanchiki.SoundManager
 import com.example.tanchiki.binding
 import com.example.tanchiki.enums.CELLS_TANKS_SIZE
 import com.example.tanchiki.enums.Direction
@@ -19,7 +20,9 @@ private const val MAX_ENEMY_AMOUNT = 20
 
 class EnemyDrawer(
     private val container: FrameLayout,
-    private val elements: MutableList<Element>
+    private val elements: MutableList<Element>,
+    private val soundManager: SoundManager,
+    private val gameCore: GameCore
     ) {
     private val respawnList: List<Coordinate>
     private var enemyAmount = 0
@@ -73,7 +76,7 @@ class EnemyDrawer(
     private fun moveEnemyTanks() {
         Thread(Runnable {
             while (true) {
-                if(!isPlaying()){
+                if(!gameCore.isPlaying()){
                     continue
                 }
                 goThroughAllTanks()
@@ -103,7 +106,7 @@ class EnemyDrawer(
         gameStarted = true
         Thread(Runnable {
             while (enemyAmount < MAX_ENEMY_AMOUNT) {
-                if(!isPlaying()){
+                if(!gameCore.isPlaying()){
                     continue
                 }
                 drawEnemy()
