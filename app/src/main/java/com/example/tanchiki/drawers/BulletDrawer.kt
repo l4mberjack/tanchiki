@@ -202,7 +202,8 @@ class BulletDrawer(
         }
 
         // пуля может проходить через материал
-        if (element.material.bulletCanGoThrough) return
+        if (element.material.bulletCanGoThrough)
+            return
 
         // пуля может уничтожить элемент
         if (element.material.simpleBulletCanDestroy) {

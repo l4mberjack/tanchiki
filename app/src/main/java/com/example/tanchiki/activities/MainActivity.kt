@@ -29,11 +29,13 @@ import com.example.tanchiki.models.Coordinate
 import com.example.tanchiki.models.Element
 import com.example.tanchiki.models.Tank
 import com.example.tanchiki.sounds.MainSoundPlayer
+import utils.ProgressIndicator
+import kotlin.concurrent.thread
 
 const val CELL_SIZE = 50
 
 lateinit var binding: ActivityMainBinding
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), ProgressIndicator  {
     private var editMode = false
     private lateinit var item: MenuItem
 
@@ -97,7 +99,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        mainSoundPlayer.loadSounds()
+        soundManager.loadSounds()
         supportActionBar?.title = "Menu"
 
         binding.editorClear.setOnClickListener{ elementsDrawer.currentMaterial = Material.EMPTY }
@@ -142,7 +144,7 @@ class MainActivity : AppCompatActivity() {
             binding.container,
             elementsDrawer.elementsOnContainer,
             enemyDrawer,
-            mainSoundPlayer,
+            soundManager,
             gameCore
         )
     }
@@ -151,8 +153,8 @@ class MainActivity : AppCompatActivity() {
         GameCore(this)
     }
 
-    private val mainSoundPlayer by lazy {
-        MainSoundPlayer(this)
+    private val soundManager by lazy {
+        MainSoundPlayer(this, this)
     }
     private fun switchEditMode(){
         if(editMode){
@@ -267,5 +269,18 @@ class MainActivity : AppCompatActivity() {
             recreate()
         }
         super.onActivityResult(requestCode, resultCode, data)
+    }
+
+    override fun showProgress() {
+        binding.container.visibility = INVISIBLE
+        binding.totalContainer.setBackgroundResource(R.color.gray)
+        binding.initTitle.visibility = VISIBLE
+    }
+
+    override fun dismissProgress() {
+        Thread.sleep(3000L)
+        binding.container.visibility = VISIBLE
+        binding.totalContainer.setBackgroundResource(R.color.black)
+        binding.initTitle.visibility = GONE
     }
 }
