@@ -138,16 +138,15 @@ class BulletDrawer(
             }
         }
     }
-    private fun compareCollections(
-        detectedCoordinatesList: List<Coordinate>,
-        bullet: Bullet
-    ) {
+    private fun compareCollections(detectedCoordinatesList: List<Coordinate>, bullet: Bullet){
         for (coordinate in detectedCoordinatesList) {
-            val element = getTankByCoordinates(coordinate, enemyDrawer.tanks)
-                getElementByCoordinates(coordinate, elements)
-
-            if (element == bullet.tank.element) continue
-
+            var element = getTankByCoordinates(coordinate, enemyDrawer.tanks)
+            if (element == null) {
+                element = getElementByCoordinates(coordinate, elements)
+            }
+            if (element == bullet.tank.element) {
+                continue
+            }
             removeElementsAndStopBullet(element, bullet)
         }
     }
