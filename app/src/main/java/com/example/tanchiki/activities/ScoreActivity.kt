@@ -6,7 +6,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.tanchiki.R
-import com.example.tanchiki.databinding.ActivityMainBinding
+import com.example.tanchiki.databinding.ActivivtyScoreBinding
 import com.example.tanchiki.sounds.ScoreSoundPlayer
 
 const val SCORE_REQUEST_CODE = 100
@@ -24,11 +24,11 @@ class ScoreActivity : AppCompatActivity() {
     }
 
     var score = 0
-    lateinit var binding: ActivityScoreBinding
+    lateinit var binding: ActivivtyScoreBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityScoreBinding.inflate(layoutInflater)
+        binding = ActivivtyScoreBinding.inflate(layoutInflater)
         setContentView(binding.root)
         score = intent.getIntExtra(EXTRA_SCORE, 0)
         scoreSoundPlayer.playScoreSound()
