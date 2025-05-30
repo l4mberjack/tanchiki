@@ -1,11 +1,10 @@
 package com.example.tanchiki.drawers
 
-import SoundManager
 import com.example.tanchiki.models.Coordinate
 import com.example.tanchiki.activities.CELL_SIZE
 import android.widget.FrameLayout
 import com.example.tanchiki.GameCore
-import sounds.SoundManager
+import com.example.tanchiki.sounds.MainSoundPlayer
 import com.example.tanchiki.enums.CELLS_TANKS_SIZE
 import com.example.tanchiki.enums.Direction
 import com.example.tanchiki.enums.Material
@@ -28,6 +27,7 @@ class EnemyDrawer(
     val tanks = mutableListOf<Tank>()
     lateinit var bulletDrawer: BulletDrawer
     private var gameStarted = false
+    private var enemyMurders = 0
 
     init {
         respawnList = getRespawnList()
@@ -115,14 +115,15 @@ class EnemyDrawer(
         moveEnemyTanks()
     }
 
-    fun isAllTanksDestroyed(): Boolean{
-        return enemyAmount == MAX_ENEMY_AMOUNT && tanks.toList().isEmpty()
+    private fun isAllTanksDestroyed(): Boolean{
+        return enemyMurders == MAX_ENEMY_AMOUNT
     }
 
-    fun getPlayerScore() = enemyAmount * 100
+    fun getPlayerScore() = enemyMurders * 100
 
     fun removeTank(tankIndex: Int) {
         tanks.removeAt(tankIndex)
+        enemyMurders++
         if (isAllTanksDestroyed()){
             gameCore.playerWon(getPlayerScore())
         }
