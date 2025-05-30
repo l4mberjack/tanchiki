@@ -2,12 +2,11 @@ package com.example.tanchiki.models
 
 import android.view.View
 import android.widget.FrameLayout
-import com.example.tanchiki.CELL_SIZE
-import com.example.tanchiki.binding
+import com.example.tanchiki.activities.CELL_SIZE
+import com.example.tanchiki.activities.binding
 import utils.checkTankCanMoveThroughBorder
 import utils.getElementByCoordinates
 import com.example.tanchiki.enums.Direction
-import com.example.tanchiki.drawers.BulletDrawer
 import com.example.tanchiki.drawers.EnemyDrawer
 import com.example.tanchiki.enums.Material
 import utils.checkIfChanceBiggerThanRandom

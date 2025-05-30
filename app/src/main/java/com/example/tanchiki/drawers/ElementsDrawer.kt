@@ -2,8 +2,8 @@ package com.example.tanchiki.drawers
 
 import android.widget.FrameLayout
 import android.view.View
-import com.example.tanchiki.CELL_SIZE
-import com.example.tanchiki.binding
+import com.example.tanchiki.activities.CELL_SIZE
+import com.example.tanchiki.activities.binding
 import com.example.tanchiki.enums.Direction
 import com.example.tanchiki.enums.Material
 import com.example.tanchiki.models.Coordinate

@@ -3,7 +3,7 @@ package com.example.tanchiki.drawers
 import android.graphics.Color
 import android.view.View
 import android.widget.FrameLayout
-import com.example.tanchiki.CELL_SIZE
+import com.example.tanchiki.activities.CELL_SIZE
 
 class GridDrawer (private  val container: FrameLayout?) {
     private val allLines = mutableListOf<View>()

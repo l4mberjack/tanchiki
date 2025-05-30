@@ -1,5 +1,7 @@
-package com.example.tanchiki
+package com.example.tanchiki.activities
 
+import android.app.Activity
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.KeyEvent
@@ -9,6 +11,9 @@ import android.view.MenuItem
 import android.view.View.*
 import android.view.ViewTreeObserver.OnGlobalLayoutListener
 import androidx.core.content.ContextCompat
+import com.example.tanchiki.GameCore
+import com.example.tanchiki.LevelStorage
+import com.example.tanchiki.R
 import com.example.tanchiki.enums.Direction.UP
 import com.example.tanchiki.enums.Direction.DOWN
 import com.example.tanchiki.enums.Direction.LEFT
@@ -23,6 +28,7 @@ import com.example.tanchiki.enums.Material
 import com.example.tanchiki.models.Coordinate
 import com.example.tanchiki.models.Element
 import com.example.tanchiki.models.Tank
+import com.example.tanchiki.sounds.MainSoundPlayer
 
 const val CELL_SIZE = 50
 
@@ -91,7 +97,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        soundManager.loadSounds()
+        mainSoundPlayer.loadSounds()
         supportActionBar?.title = "Menu"
 
         binding.editorClear.setOnClickListener{ elementsDrawer.currentMaterial = Material.EMPTY }
@@ -254,5 +260,12 @@ class MainActivity : AppCompatActivity() {
 
     private fun move(direction: Direction){
         playerTank.move(direction, binding.container, elementsDrawer.elementsOnContainer)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (resultCode == Activity.RESULT_OK && requestCode == SCORE_REQUEST_CODE){
+            recreate()
+        }
+        super.onActivityResult(requestCode, resultCode, data)
     }
 }

@@ -1,12 +1,12 @@
 package com.example.tanchiki.drawers
 
 
-import sounds.SoundManager
+import com.example.tanchiki.sounds.MainSoundPlayer
 import android.app.Activity
 import android.view.View
 import android.widget.FrameLayout
 import android.widget.ImageView
-import com.example.tanchiki.CELL_SIZE
+import com.example.tanchiki.activities.CELL_SIZE
 import com.example.tanchiki.GameCore
 import com.example.tanchiki.R
 import com.example.tanchiki.enums.Direction
@@ -28,7 +28,7 @@ class BulletDrawer(
     private val container: FrameLayout,
     private val elements: MutableList<Element>,
     private val enemyDrawer: EnemyDrawer,
-    private val soundManager: sounds.SoundManager,
+    private val soundManager: MainSoundPlayer,
     private val gameCore: GameCore
 
 ) {

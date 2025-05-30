@@ -2,7 +2,7 @@ package com.example.tanchiki.drawers
 
 import SoundManager
 import com.example.tanchiki.models.Coordinate
-import com.example.tanchiki.CELL_SIZE
+import com.example.tanchiki.activities.CELL_SIZE
 import android.widget.FrameLayout
 import com.example.tanchiki.GameCore
 import sounds.SoundManager
@@ -115,8 +115,17 @@ class EnemyDrawer(
         moveEnemyTanks()
     }
 
+    fun isAllTanksDestroyed(): Boolean{
+        return enemyAmount == MAX_ENEMY_AMOUNT && tanks.toList().isEmpty()
+    }
+
+    fun getPlayerScore() = enemyAmount * 100
+
     fun removeTank(tankIndex: Int) {
         tanks.removeAt(tankIndex)
+        if (isAllTanksDestroyed()){
+            gameCore.playerWon(getPlayerScore())
+        }
     }
 
 }

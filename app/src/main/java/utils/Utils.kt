@@ -4,8 +4,8 @@ import android.app.Activity
 import android.view.View
 import android.widget.FrameLayout
 import android.widget.ImageView
-import com.example.tanchiki.CELL_SIZE
-import com.example.tanchiki.binding
+import com.example.tanchiki.activities.CELL_SIZE
+import com.example.tanchiki.activities.binding
 import com.example.tanchiki.models.Coordinate
 import com.example.tanchiki.models.Element
 import com.example.tanchiki.models.Tank

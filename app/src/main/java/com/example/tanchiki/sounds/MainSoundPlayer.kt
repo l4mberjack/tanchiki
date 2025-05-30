@@ -1,4 +1,4 @@
-package sounds
+package com.example.tanchiki.sounds
 import android.content.Context
 import android.media.MediaPlayer
 import com.example.tanchiki.R

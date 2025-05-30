@@ -1,4 +1,4 @@
-package sounds
+package com.example.tanchiki.sounds
 
 import android.media.SoundPool
 class GameSound(
