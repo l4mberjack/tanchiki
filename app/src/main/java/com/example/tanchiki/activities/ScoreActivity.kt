@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
 import com.example.tanchiki.R
 import com.example.tanchiki.databinding.ActivityMainBinding
 import com.example.tanchiki.sounds.ScoreSoundPlayer

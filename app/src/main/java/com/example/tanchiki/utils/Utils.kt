@@ -1,4 +1,4 @@
-package utils
+package com.example.tanchiki.utils
 
 import android.app.Activity
 import android.view.View

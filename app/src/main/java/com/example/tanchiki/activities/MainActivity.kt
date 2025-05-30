@@ -29,13 +29,12 @@ import com.example.tanchiki.models.Coordinate
 import com.example.tanchiki.models.Element
 import com.example.tanchiki.models.Tank
 import com.example.tanchiki.sounds.MainSoundPlayer
-import utils.ProgressIndicator
-import kotlin.concurrent.thread
+import com.example.tanchiki.utils.ProgressIndicator
 
 const val CELL_SIZE = 50
 
 lateinit var binding: ActivityMainBinding
-class MainActivity : AppCompatActivity(), ProgressIndicator  {
+class MainActivity : AppCompatActivity(), ProgressIndicator {
     private var editMode = false
     private lateinit var item: MenuItem
 

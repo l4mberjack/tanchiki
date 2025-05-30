@@ -1,24 +1,25 @@
 package com.example.tanchiki.drawers
 
+
 import com.example.tanchiki.models.Coordinate
 import com.example.tanchiki.activities.CELL_SIZE
 import android.widget.FrameLayout
 import com.example.tanchiki.GameCore
-import com.example.tanchiki.sounds.MainSoundPlayer
 import com.example.tanchiki.enums.CELLS_TANKS_SIZE
 import com.example.tanchiki.enums.Direction
 import com.example.tanchiki.enums.Material
 import com.example.tanchiki.models.Element
 import com.example.tanchiki.models.Tank
-import utils.checkIfChanceBiggerThanRandom
-import utils.drawElement
+import com.example.tanchiki.sounds.MainSoundPlayer
+import com.example.tanchiki.utils.checkIfChanceBiggerThanRandom
+import com.example.tanchiki.utils.drawElement
 
 private const val MAX_ENEMY_AMOUNT = 20
 
 class EnemyDrawer(
     private val container: FrameLayout,
     private val elements: MutableList<Element>,
-    private val soundManager: sounds.SoundManager,
+    private val mainSoundPlayer: MainSoundPlayer,
     private val gameCore: GameCore
     ) {
     private val respawnList: List<Coordinate>
@@ -85,9 +86,9 @@ class EnemyDrawer(
 
     private fun goThroughAllTanks() {
         if (tanks.isNotEmpty()){
-            sounds.SoundManager.tankMove()
+            mainSoundPlayer.tankMove()
         } else {
-            sounds.SoundManager.tankStop()
+            mainSoundPlayer.tankStop()
         }
             tanks.toList().forEach{
                 it.move(it.direction, container, elements)

@@ -4,15 +4,15 @@ import android.view.View
 import android.widget.FrameLayout
 import com.example.tanchiki.activities.CELL_SIZE
 import com.example.tanchiki.activities.binding
-import utils.checkTankCanMoveThroughBorder
-import utils.getElementByCoordinates
+import com.example.tanchiki.utils.checkTankCanMoveThroughBorder
+import com.example.tanchiki.utils.getElementByCoordinates
 import com.example.tanchiki.enums.Direction
 import com.example.tanchiki.drawers.EnemyDrawer
 import com.example.tanchiki.enums.Material
-import utils.checkIfChanceBiggerThanRandom
-import utils.getTankByCoordinates
-import utils.getViewCoordinate
-import utils.runOnUiThread
+import com.example.tanchiki.utils.checkIfChanceBiggerThanRandom
+import com.example.tanchiki.utils.getTankByCoordinates
+import com.example.tanchiki.utils.getViewCoordinate
+import com.example.tanchiki.utils.runOnUiThread
 import kotlin.random.Random
 
 class Tank constructor(

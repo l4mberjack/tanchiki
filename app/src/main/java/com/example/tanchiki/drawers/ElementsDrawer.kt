@@ -8,8 +8,8 @@ import com.example.tanchiki.enums.Direction
 import com.example.tanchiki.enums.Material
 import com.example.tanchiki.models.Coordinate
 import com.example.tanchiki.models.Element
-import utils.drawElement
-import utils.getElementByCoordinates
+import com.example.tanchiki.utils.drawElement
+import com.example.tanchiki.utils.getElementByCoordinates
 
 
 class ElementsDrawer (val container: FrameLayout) {

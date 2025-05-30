@@ -1,8 +1,7 @@
 package com.example.tanchiki.sounds
 import android.content.Context
-import android.media.MediaPlayer
 import com.example.tanchiki.R
-import utils.ProgressIndicator
+import com.example.tanchiki.utils.ProgressIndicator
 
 
 private const val INTRO_MUSIC_INDEX = 0
