@@ -13,18 +13,38 @@ import kotlin.random.Random
 
 const val TOTAL_PERCENT = 100
 
-fun View.checkTankCanMoveThroughBorder(coordinate: Coordinate): Boolean{
+fun View.checkTankCanMoveThroughBorder(coordinate: Coordinate): Boolean {
     return coordinate.top >= 0 &&
             coordinate.top + this.height <= binding.container.height &&
             coordinate.left >= 0 &&
             coordinate.left + this.width <= binding.container.width
 }
 
-fun getTankByCoordinates(coordinate: Coordinate, tankList: List<Tank>): Element? {
-    return  getElementByCoordinates(coordinate, tankList.map { it.element })
+fun getElementByCoordinates(
+    coordinate: Coordinate,
+    elementsOnContainer: List<Element>,
+): Element? {
+    for (element in elementsOnContainer.toList()) {
+        for (height in 0 until element.height) {
+            for (width in 0 until element.width) {
+                val searchingCoordinate = Coordinate(
+                    top = element.coordinate.top + height * CELL_SIZE,
+                    left = element.coordinate.left + width * CELL_SIZE
+                )
+                if (coordinate == searchingCoordinate) {
+                    return element
+                }
+            }
+        }
+    }
+    return null
 }
 
-fun Element.drawElement(container: FrameLayout){
+fun getTankByCoordinates(coordinate: Coordinate, tankList: List<Tank>): Element? {
+    return getElementByCoordinates(coordinate, tankList.map { it.element })
+}
+
+fun Element.drawElement(container: FrameLayout) {
     val view = ImageView(container.context)
     val layoutParams = FrameLayout.LayoutParams(
         this.material.width * CELL_SIZE,
@@ -36,41 +56,22 @@ fun Element.drawElement(container: FrameLayout){
     view.id = this.viewId
     view.layoutParams = layoutParams
     view.scaleType = ImageView.ScaleType.FIT_XY
-    container.runOnUiThread{
+    container.runOnUiThread {
         container.addView(view)
     }
 }
 
-fun FrameLayout.runOnUiThread(block:()-> Unit){
-    (this.context as Activity).runOnUiThread{
+fun FrameLayout.runOnUiThread(block: () -> Unit) {
+    (this.context as Activity).runOnUiThread {
         block()
     }
-
-}
-fun getElementByCoordinates(
-    coordinate: Coordinate,
-    elementsOnContainer: List<Element>
-): Element? {
-    for (element in elementsOnContainer.toList()) {
-        for (height in 0  until element.height) {
-            for (width in 0 until element.width){
-                val searchCoordinate = Coordinate(
-                    top = element.coordinate.top + height + CELL_SIZE,
-                    left = element.coordinate.left + width + CELL_SIZE
-                )
-                if(coordinate == searchCoordinate){
-                    return element
-                }
-            }
-        }
-    }
-    return null
 }
 
 fun checkIfChanceBiggerThanRandom(percentChance: Int): Boolean {
     return Random.nextInt(TOTAL_PERCENT) <= percentChance
 }
-fun View.getViewCoordinate(): Coordinate{
+
+fun View.getViewCoordinate(): Coordinate {
     return Coordinate(
         (this.layoutParams as FrameLayout.LayoutParams).topMargin,
         (this.layoutParams as FrameLayout.LayoutParams).leftMargin
