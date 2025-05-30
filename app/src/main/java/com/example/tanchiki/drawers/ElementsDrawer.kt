@@ -111,52 +111,6 @@ class ElementsDrawer (val container: FrameLayout) {
         return elements
     }
 
-    fun move(myTank: View, direction: Direction, elementsOnContainer: MutableList<Element>){
-        val layoutParams = myTank.layoutParams as FrameLayout.LayoutParams
-        val currentCoordinate = Coordinate(layoutParams.topMargin, layoutParams.leftMargin)
-        when(direction){
-            Direction.UP ->{
-                myTank.rotation = 0f
-                (myTank.layoutParams as FrameLayout.LayoutParams).topMargin += -CELL_SIZE
-            }
-
-            Direction.DOWN -> {
-                myTank.rotation = 180f
-                (myTank.layoutParams as FrameLayout.LayoutParams).topMargin += CELL_SIZE
-            }
-
-            Direction.LEFT -> {
-                myTank.rotation = 270f
-                (myTank.layoutParams as FrameLayout.LayoutParams).leftMargin -= CELL_SIZE
-            }
-
-            Direction.RIGHT ->{
-                myTank.rotation = 90f
-                (myTank.layoutParams as FrameLayout.LayoutParams).leftMargin += CELL_SIZE
-            }
-        }
-
-        val nextCoordinate = Coordinate(layoutParams.topMargin, layoutParams.leftMargin)
-        if (checkTankCanMoveThroughBorder(
-                nextCoordinate,
-                myTank
-            ) && checkTankCanMoveThroughMaterial(nextCoordinate)
-        ) {
-            binding.container.removeView(binding.myTank)
-            binding.container.addView(binding.myTank)
-        } else {
-            (myTank.layoutParams as FrameLayout.Layout
-                    top = (height - height % 2)
-                    - (height - height % 2) % CELL_SIZE
-                    - Material.EAGLE.height * CELL_SIZE,
-            left = (width - width % (2 * CELL_SIZE)) / 2
-            - Material.EAGLE.width / 2 * CELL_SIZE
-            )
-            Params).topMargin = currentCoordinate.top
-            (myTank.layoutParams as FrameLayout.LayoutParams).leftMargin = currentCoordinate.left
-        }
-
-    }
 
 
     private fun checkTankCanMoveThroughMaterial(coordinate: Coordinate): Boolean{

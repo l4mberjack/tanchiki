@@ -26,8 +26,8 @@ class ScoreActivity : AppCompatActivity() {
     var score = 0
     lateinit var binding: ActivityScoreBinding
 
-    override fun OnCreate(){
-        super.OnCreate(savedStateRegistry)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         binding = ActivityScoreBinding.inflate(layoutInflater)
         setContentView(binding.root)
         score = intent.getIntExtra(EXTRA_SCORE, 0)

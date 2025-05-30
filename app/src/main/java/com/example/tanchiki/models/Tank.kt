@@ -120,9 +120,6 @@ class Tank constructor(
         return coordinateList
     }
 
-    fun alreadyHasBullet(): Boolean {
-
-    }
 
 
 }
